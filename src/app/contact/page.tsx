@@ -1,0 +1,143 @@
+import React from 'react'
+import ContactFormClient from '@/components/contact/ContactFormClient'
+import FaqAccordionClient from '@/components/contact/FaqAccordionClient'
+import ReportFormClient from '@/components/contact/ReportFormClient'
+
+const FAQ_ITEMS = [
+  {
+    q: 'Tôi cần chuẩn bị gì để thuê trang phục?',
+    a: 'Bạn cần cung cấp CMND/CCCD và đặt cọc theo quy định của từng sản phẩm. Sau khi trả đồ trong tình trạng tốt, tiền cọc sẽ được hoàn lại đầy đủ.',
+  },
+  {
+    q: 'Thời gian thuê tối thiểu và tối đa là bao nhiêu?',
+    a: 'Thời gian thuê tối thiểu là 1 ngày. Thời gian tối đa phụ thuộc vào lịch của từng sản phẩm. Bạn có thể xem ngày còn trống trực tiếp trên trang sản phẩm.',
+  },
+  {
+    q: 'Nếu trang phục bị hỏng hoặc bẩn thì sao?',
+    a: 'Hao mòn nhẹ trong quá trình sử dụng bình thường là chấp nhận được. Đối với hư hỏng ngoài mức bình thường (rách, mất phụ kiện, bẩn nặng...), một phần hoặc toàn bộ tiền cọc có thể bị giữ lại để bù đắp chi phí sửa chữa.',
+  },
+  {
+    q: 'Tôi có thể huỷ đơn thuê không? Chính sách hoàn tiền là gì?',
+    a: 'Bạn có thể huỷ đơn trước 48 giờ so với ngày nhận hàng và được hoàn lại 100% tiền cọc. Huỷ trong vòng 48 giờ sẽ bị giữ lại 30% tiền cọc.',
+  },
+  {
+    q: 'Tôi nhận hàng và trả hàng như thế nào?',
+    a: 'Rent4U hỗ trợ cả hình thức nhận/trả tại cửa hàng và giao hàng tận nơi (phí ship áp dụng). Chi tiết sẽ được xác nhận qua email sau khi đặt đơn thành công.',
+  },
+  {
+    q: 'Trang web có hỗ trợ thanh toán online không?',
+    a: 'Hiện tại chúng tôi hỗ trợ thanh toán qua chuyển khoản ngân hàng, MoMo và tiền mặt khi nhận hàng. Chúng tôi đang tích hợp thêm VNPay và ZaloPay.',
+  },
+  {
+    q: 'Làm sao để trở thành nhà cung cấp (chủ sản phẩm) trên Rent4U?',
+    a: 'Bạn có thể liên hệ qua email zerolol248@gmail.com với tiêu đề "Đăng ký nhà cung cấp". Đội ngũ của chúng tôi sẽ liên hệ và hướng dẫn quy trình đăng ký trong 1–2 ngày làm việc.',
+  },
+]
+
+export default function ContactPage() {
+  return (
+    <div className="px-4 pb-16">
+      {/* Hero */}
+      <section className="bg-primary/5 border-b border-border px-4 py-12 -mx-4 text-center mb-10">
+        <span className="text-xs font-semibold uppercase tracking-widest text-primary">Hỗ trợ</span>
+        <h1 className="mt-2 text-3xl font-bold">Liên hệ & Hỗ trợ</h1>
+        <p className="mt-3 text-sm text-muted-foreground max-w-md mx-auto">
+          Chúng tôi luôn sẵn sàng hỗ trợ bạn. Hãy gửi câu hỏi, báo cáo sự cố hoặc đọc các câu hỏi thường gặp bên dưới.
+        </p>
+      </section>
+
+      <div className="max-w-5xl mx-auto space-y-14">
+        {/* Admin Info + Contact Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+          <div className="lg:col-span-1">
+            <div className="bg-card border border-border rounded-2xl p-6 space-y-5 h-fit">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-2xl font-bold text-primary">
+                  R4
+                </div>
+                <div>
+                  <h2 className="font-semibold text-base">Rent4U Admin</h2>
+                  <p className="text-xs text-muted-foreground">Quản trị viên nền tảng</p>
+                </div>
+              </div>
+
+              <ul className="space-y-3 text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 text-primary">✉</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Email</p>
+                    <a href="mailto:zerolol248@gmail.com" className="font-medium hover:text-primary transition-colors">zerolol248@gmail.com</a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 text-primary">📞</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Điện thoại</p>
+                    <a href="tel:+84325412311" className="font-medium hover:text-primary transition-colors">+84 325 412 311</a>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 text-primary">🕐</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Giờ hỗ trợ</p>
+                    <p className="font-medium">Thứ 2 – Thứ 7, 8:00 – 20:00</p>
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-0.5 text-primary">📍</span>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Địa chỉ</p>
+                    <p className="font-medium">TP. Hồ Chí Minh, Việt Nam</p>
+                  </div>
+                </li>
+              </ul>
+
+              <div className="border-t border-border pt-4">
+                <p className="text-xs text-muted-foreground mb-2">Mạng xã hội</p>
+                <div className="flex gap-3">
+                  {[
+                    { label: 'Facebook', href: 'https://www.facebook.com/xuan.nhi.626418' },
+                    { label: 'Instagram', href: '#' },
+                    { label: 'Zalo', href: '#' },
+                  ].map(s => (
+                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                      className="text-xs px-3 py-1.5 rounded-lg border border-border hover:border-primary hover:text-primary transition-colors">
+                      {s.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-primary/5 rounded-xl p-3 text-xs text-muted-foreground">
+                ⚡ Thời gian phản hồi trung bình: <span className="font-medium text-foreground">dưới 2 giờ</span> trong giờ làm việc.
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <ContactFormClient />
+          </div>
+        </div>
+
+        {/* FAQ */}
+        <section>
+          <div className="mb-5">
+            <span className="text-xs font-semibold uppercase tracking-widest text-primary">FAQ</span>
+            <h2 className="mt-1 text-xl font-bold">Câu hỏi thường gặp</h2>
+          </div>
+          <FaqAccordionClient items={FAQ_ITEMS} />
+        </section>
+
+        {/* Report */}
+        <section>
+          <div className="mb-5">
+            <span className="text-xs font-semibold uppercase tracking-widest text-red-500">Khiếu nại</span>
+            <h2 className="mt-1 text-xl font-bold">Báo cáo sự cố</h2>
+            <p className="text-sm text-muted-foreground mt-1">Gặp vấn đề với đơn hàng? Hãy gửi báo cáo, chúng tôi cam kết xử lý trong 24 giờ.</p>
+          </div>
+          <ReportFormClient />
+        </section>
+      </div>
+    </div>
+  )
+}
