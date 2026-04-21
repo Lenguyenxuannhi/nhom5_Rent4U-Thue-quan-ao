@@ -79,7 +79,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* How it works (simplified) */}
+        {/* How it works simplified */}
         <section id="how-it-works" className="mb-12">
           <div className="text-center mb-6">
             <span className="text-xs text-primary uppercase">Quy trình</span>
