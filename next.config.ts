@@ -13,7 +13,7 @@ if (explicit) {
   const repo = process.env.GITHUB_REPOSITORY.split('/').pop();
   derivedBase = repo ? normalizeBasePath(repo) : '';
 } else {
-  derivedBase = '/rent4u-nextjs'; // fallback (optional)
+  derivedBase = '/nhom5_Rent4U-Thue-quan-ao'; // fallback (optional)
 }
 
 const nextConfig: NextConfig = {

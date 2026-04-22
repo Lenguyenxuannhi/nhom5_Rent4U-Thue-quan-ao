@@ -1,6 +1,6 @@
 export function getBasePath(): string {
   if (typeof window === 'undefined') return ''
-  return window.location.pathname.startsWith('/nhom5_Rent4U-') ? '/nhom5_Rent4U-' : ''
+  return window.location.pathname.startsWith('/nhom5_Rent4U-Thue-quan-ao') ? '/nhom5_Rent4U-Thue-quan-ao' : ''
 }
 
 /** Products with timestamp ids (> 1776000000000) were created after build and need /product/not-built?id= */

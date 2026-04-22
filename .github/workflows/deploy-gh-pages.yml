@@ -21,7 +21,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /nhom5_Rent4U-
+          NEXT_PUBLIC_BASE_PATH: /nhom5_Rent4U-Thue-quan-ao
       - name: Add nojekyll
         run: touch ./out/.nojekyll
       - name: Deploy to gh-pages
