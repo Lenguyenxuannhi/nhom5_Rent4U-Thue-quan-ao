@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "prebuild": "node ./scripts/copy-db-to-public.js",
+    "prebuild": "node -e \"const fs=require('fs'); if (fs.existsSync('./scripts/copy-db-to-public.js')) require('./scripts/copy-db-to-public.js'); else console.log('no prebuild script')\"",
     "build:export": "npm run build",
     "start": "next start",
     "lint": "eslint",
