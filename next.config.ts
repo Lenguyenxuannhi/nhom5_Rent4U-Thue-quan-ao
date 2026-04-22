@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 function normalizeBasePath(p?: string) {
   if (!p) return '';
-  return '/' + p.replace(/^\/+|\/+$/g, ''));
+  return '/' + p.replace(/^\/+|\/+$/g, '');
 }
 
 const explicit = process.env.NEXT_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH;
