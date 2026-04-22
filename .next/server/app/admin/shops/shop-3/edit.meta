@@ -1,0 +1,18 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/shops/layout,_N_T_/admin/shops/[id]/layout,_N_T_/admin/shops/[id]/edit/layout,_N_T_/admin/shops/[id]/edit/page,_N_T_/admin/shops/shop-3/edit"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/admin/shops/$d$id/edit/__PAGE__",
+    "/admin/shops/$d$id/edit",
+    "/admin/shops/$d$id",
+    "/admin/shops",
+    "/admin",
+    "/_index",
+    "/_head"
+  ]
+}

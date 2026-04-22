@@ -1,0 +1,17 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/orders/layout,_N_T_/orders/[id]/layout,_N_T_/orders/[id]/invoice/layout,_N_T_/orders/[id]/invoice/page,_N_T_/orders/1776531792253/invoice"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/orders/$d$id/invoice/__PAGE__",
+    "/orders/$d$id/invoice",
+    "/orders/$d$id",
+    "/orders",
+    "/_index",
+    "/_head"
+  ]
+}
