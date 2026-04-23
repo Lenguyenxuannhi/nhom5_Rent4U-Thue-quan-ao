@@ -20,6 +20,16 @@ export async function getRatingsForProduct(productId: string) {
   }
 }
 
+export async function getUserRatings(userId: string) {
+  try {
+    const all = await getAll('ratings')
+    if (!Array.isArray(all)) return []
+    return all.filter((r: any) => String(r.userId) === String(userId))
+  } catch {
+    return []
+  }
+}
+
 export async function submitRating(userId: string, productId: string, rating: number, comment?: string) {
   try {
     const all = await getAll('ratings')

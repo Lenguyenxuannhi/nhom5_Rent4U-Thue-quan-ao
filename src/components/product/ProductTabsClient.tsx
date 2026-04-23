@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { StarRating } from '@/components/ui/StarRating'
 import StarRatingInput from '@/components/ui/StarRatingInput'
 import { useAuth } from '@/components/AuthProvider'
-import { getUserRating, submitRating } from '@/lib/rating-client'
+import { getUserRating, getRatingsForProduct, submitRating } from '@/lib/rating-client'
 import { useRouter } from 'next/navigation'
 
 type Tab = 'description' | 'details' | 'reviews'
@@ -16,6 +16,10 @@ export default function ProductTabsClient({ product }: { product: any }) {
   const [localRating, setLocalRating] = useState<number | undefined>(product.rating)
   const [localReviewCount, setLocalReviewCount] = useState<number | undefined>(product.reviewCount)
   const [userRatingObj, setUserRatingObj] = useState<any | null>(null)
+  const [reviewsList, setReviewsList] = useState<any[]>([])
+  const [lastRatingValue, setLastRatingValue] = useState<number | null>(null)
+  const [comment, setComment] = useState<string>('')
+  const [submittingComment, setSubmittingComment] = useState<boolean>(false)
 
   useEffect(() => {
     setLocalRating(product.rating)
@@ -38,6 +42,19 @@ export default function ProductTabsClient({ product }: { product: any }) {
     })()
     return () => { canceled = true }
   }, [user?.id, product.id])
+
+  useEffect(() => {
+    let canceled = false
+    ;(async () => {
+      try {
+        const r = await getRatingsForProduct(String(product.id))
+        if (!canceled) setReviewsList(Array.isArray(r) ? (r as any[]).slice().sort((a: any, b: any) => (b.date || '').localeCompare(a.date || '')) : [])
+      } catch {
+        if (!canceled) setReviewsList([])
+      }
+    })()
+    return () => { canceled = true }
+  }, [product.id, localReviewCount])
 
   const tabs: { key: Tab; label: string }[] = [
     { key: 'description', label: 'Mô tả' },
@@ -103,21 +120,57 @@ export default function ProductTabsClient({ product }: { product: any }) {
               {user ? (
                 <div className="flex items-center gap-3">
                   <div className="text-sm">Đánh giá của bạn:</div>
-                  <StarRatingInput
-                    initial={userRatingObj?.rating ?? 0}
-                    onSubmit={async (v) => {
-                      try {
-                        const res = await submitRating(String(user.id), String(product.id), v)
-                        if (res) {
-                          setLocalRating(res.avg)
-                          setLocalReviewCount(res.count)
-                          setUserRatingObj({ rating: v, date: new Date().toISOString() })
-                        }
-                      } catch {
-                        // ignore
-                      }
-                    }}
-                  />
+                    <div className="flex items-center gap-3">
+                      <StarRatingInput
+                        initial={userRatingObj?.rating ?? 0}
+                        onSubmit={async (v) => {
+                          setLastRatingValue(v)
+                          try {
+                            const res = await submitRating(String(user.id), String(product.id), v)
+                            if (res) {
+                              setLocalRating(res.avg)
+                              setLocalReviewCount(res.count)
+                              setUserRatingObj((prev: any) => ({ ...(prev || {}), rating: v, date: new Date().toISOString() }))
+                            }
+                          } catch {
+                            // ignore
+                          }
+                        }}
+                      />
+                      <div className="flex-1">
+                        <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Viết nhận xét của bạn..." className="w-full p-2 border rounded text-sm bg-input dark:bg-slate-800" />
+                        <div className="mt-2">
+                          <button
+                            onClick={async () => {
+                              if (!user) return router.push('/login')
+                              const txt = (comment || '').trim()
+                              if (!txt) return
+                              setSubmittingComment(true)
+                              try {
+                                const ratingToSend = lastRatingValue ?? userRatingObj?.rating ?? 5
+                                const res = await submitRating(String(user.id), String(product.id), Number(ratingToSend), txt)
+                                if (res) {
+                                  setLocalRating(res.avg)
+                                  setLocalReviewCount(res.count)
+                                  setUserRatingObj({ rating: Number(ratingToSend), comment: txt, date: new Date().toISOString() })
+                                  setComment('')
+                                  // refresh reviews list
+                                  const fresh = await getRatingsForProduct(String(product.id))
+                                  setReviewsList(Array.isArray(fresh) ? fresh.slice().sort((a: any, b: any) => (b.date || '').localeCompare(a.date || '')) : [])
+                                }
+                              } catch (e) {
+                                // ignore
+                              }
+                              setSubmittingComment(false)
+                            }}
+                            className="px-3 py-2 bg-primary text-primary-foreground rounded disabled:opacity-50"
+                            disabled={submittingComment || !comment.trim()}
+                          >
+                            {submittingComment ? 'Đang gửi...' : 'Gửi nhận xét'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               ) : (
                 <div className="text-sm">
@@ -127,10 +180,10 @@ export default function ProductTabsClient({ product }: { product: any }) {
             </div>
 
             <div className="space-y-3">
-              {(product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(localRating ?? 0, localReviewCount ?? 0)).map((r: any, i: number) => (
-                <div key={i} className="border border-border rounded-xl p-3 space-y-1">
+              {(reviewsList && reviewsList.length > 0 ? reviewsList : (product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(localRating ?? 0, localReviewCount ?? 0))).map((r: any, i: number) => (
+                <div key={r.id ?? i} className="border border-border rounded-xl p-3 space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">{r.author}</span>
+                    <span className="text-sm font-medium">{r.userId && user && String(r.userId) === String(user.id) ? 'Bạn' : (r.author || 'Người dùng')}</span>
                     <span className="text-xs text-muted-foreground">{r.date}</span>
                   </div>
                   <StarRating rating={r.rating} />
