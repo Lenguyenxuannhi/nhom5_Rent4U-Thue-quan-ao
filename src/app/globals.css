@@ -158,4 +158,36 @@
       max-width: 1280px;
     }
   }
+
+  /* Decorative card styles for highlighted sections */
+  .decor-card {
+    @apply bg-card text-card-foreground rounded-3xl p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl shadow-sm relative overflow-hidden;
+  }
+
+  .decor-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+    mix-blend-mode: overlay;
+    opacity: 0.7;
+  }
+
+  .decor-icon {
+    @apply w-16 h-16 rounded-full flex items-center justify-center text-2xl;
+  }
+
+  .stat-badge {
+    @apply text-4xl font-extrabold;
+  }
+
+  .cta-primary {
+    @apply inline-block px-6 py-3 rounded-full font-semibold transition-shadow shadow-sm hover:shadow-lg;
+  }
+
+  /* A subtle accent ring for featured cards */
+  .accent-ring {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
 }

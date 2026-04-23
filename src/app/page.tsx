@@ -90,21 +90,21 @@ export default function Home() {
             <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Chọn mẫu, đặt ngày và tận hưởng — chúng tôi lo phần còn lại: đóng gói, giao nhận và vệ sinh.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-            <div className="bg-card p-6 rounded-3xl text-card-foreground flex flex-col items-center text-center gap-4 shadow-sm">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl">🧾</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            <div className="decor-card accent-ring flex flex-col items-center text-center gap-4">
+              <div className="decor-icon bg-primary/10 text-primary">🧾</div>
               <h3 className="font-semibold">Chọn trang phục</h3>
               <p className="text-sm text-muted-foreground">Duyệt bộ sưu tập, chọn size và thêm vào giỏ.</p>
             </div>
 
-            <div className="bg-card p-6 rounded-3xl text-card-foreground flex flex-col items-center text-center gap-4 shadow-sm">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl">📅</div>
+            <div className="decor-card accent-ring flex flex-col items-center text-center gap-4">
+              <div className="decor-icon bg-primary/10 text-primary">📅</div>
               <h3 className="font-semibold">Đặt ngày thuê</h3>
               <p className="text-sm text-muted-foreground">Chọn ngày nhận và trả — lịch rõ ràng, không lo chồng chéo.</p>
             </div>
 
-            <div className="bg-card p-6 rounded-3xl text-card-foreground flex flex-col items-center text-center gap-4 shadow-sm">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl">✅</div>
+            <div className="decor-card accent-ring flex flex-col items-center text-center gap-4">
+              <div className="decor-icon bg-primary/10 text-primary">✅</div>
               <h3 className="font-semibold">Mặc &amp; hoàn trả</h3>
               <p className="text-sm text-muted-foreground">Mặc đẹp, trả gọn — chúng tôi xử lý vệ sinh và kiểm tra.</p>
             </div>
@@ -121,15 +121,15 @@ export default function Home() {
 
               <div className="mt-8 grid grid-cols-3 gap-6 max-w-2xl mx-auto">
                 <div className="text-center">
-                  <div className="text-4xl font-extrabold">73%</div>
+                  <div className="stat-badge">73%</div>
                   <div className="text-sm mt-1">Tiết kiệm nước</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-extrabold">80%</div>
+                  <div className="stat-badge">80%</div>
                   <div className="text-sm mt-1">Giảm carbon</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl font-extrabold">100%</div>
+                  <div className="stat-badge">100%</div>
                   <div className="text-sm mt-1">Tái sử dụng</div>
                 </div>
               </div>
@@ -147,25 +147,25 @@ export default function Home() {
         <section className="mb-12">
           <div className="site-container">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div className="bg-card p-6 rounded-2xl text-card-foreground">
+              <div className="decor-card">
                 <div className="text-2xl mb-3">🛡️</div>
                 <h4 className="font-semibold">Bảo hiểm 100%</h4>
                 <p className="mt-2 text-sm text-muted-foreground">Mọi trang phục đều có bảo hiểm</p>
               </div>
 
-              <div className="bg-card p-6 rounded-2xl text-card-foreground">
+              <div className="decor-card">
                 <div className="text-2xl mb-3">🔁</div>
                 <h4 className="font-semibold">Đổi trả dễ dàng</h4>
                 <p className="mt-2 text-sm text-muted-foreground">Không vừa? Đổi ngay miễn phí</p>
               </div>
 
-              <div className="bg-card p-6 rounded-2xl text-card-foreground">
+              <div className="decor-card">
                 <div className="text-2xl mb-3">🧼</div>
                 <h4 className="font-semibold">Chất lượng đảm bảo</h4>
                 <p className="mt-2 text-sm text-muted-foreground">Vệ sinh &amp; kiểm tra trước mỗi lần thuê</p>
               </div>
 
-              <div className="bg-card p-6 rounded-2xl text-card-foreground">
+              <div className="decor-card">
                 <div className="text-2xl mb-3">🌍</div>
                 <h4 className="font-semibold">Thân thiện môi trường</h4>
                 <p className="mt-2 text-sm text-muted-foreground">Giảm thiểu lãng phí thời trang</p>
