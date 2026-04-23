@@ -4669,7 +4669,7 @@ const tree = [
                     const mod = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$nhom5rent4u$2f$node_modules$2f$next$2f$dist$2f$esm$2f$server$2f$app$2d$render$2f$interop$2d$default$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$2c$__Next$2e$js__server__utility$29$__["interopDefault"])(await __TURBOPACK__icon__$23$0__());
                     return [
                         {
-                            url: (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$nhom5rent4u$2f$node_modules$2f$next$2f$dist$2f$lib$2f$metadata$2f$get$2d$metadata$2d$route$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fillMetadataSegment"])("/Rent4UNext//", await props.params, "favicon.ico", true) + `?${mod.src.split("/").splice(-1)[0]}`,
+                            url: (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$nhom5rent4u$2f$node_modules$2f$next$2f$dist$2f$lib$2f$metadata$2f$get$2d$metadata$2d$route$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fillMetadataSegment"])("/nhom5_Rent4U-Thue-quan-ao//", await props.params, "favicon.ico", true) + `?${mod.src.split("/").splice(-1)[0]}`,
                             sizes: `${mod.width}x${mod.height}`,
                             type: `image/x-icon`
                         }

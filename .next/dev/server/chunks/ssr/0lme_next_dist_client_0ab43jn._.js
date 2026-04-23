@@ -571,7 +571,7 @@ Object.defineProperty(exports, "addBasePath", {
 });
 const _addpathprefix = __turbopack_context__.r("[project]/Downloads/nhom5rent4u/node_modules/next/dist/shared/lib/router/utils/add-path-prefix.js [app-ssr] (ecmascript)");
 const _normalizetrailingslash = __turbopack_context__.r("[project]/Downloads/nhom5rent4u/node_modules/next/dist/client/normalize-trailing-slash.js [app-ssr] (ecmascript)");
-const basePath = ("TURBOPACK compile-time value", "/Rent4UNext") || '';
+const basePath = ("TURBOPACK compile-time value", "/nhom5_Rent4U-Thue-quan-ao") || '';
 function addBasePath(path, required) {
     return (0, _normalizetrailingslash.normalizePathTrailingSlash)(("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : (0, _addpathprefix.addPathPrefix)(path, basePath));
 }
@@ -1126,7 +1126,7 @@ Object.defineProperty(exports, "findSourceMapURL", {
         return findSourceMapURL;
     }
 });
-const basePath = ("TURBOPACK compile-time value", "/Rent4UNext") || '';
+const basePath = ("TURBOPACK compile-time value", "/nhom5_Rent4U-Thue-quan-ao") || '';
 const pathname = `${basePath}/__nextjs_source-map`;
 const findSourceMapURL = ("TURBOPACK compile-time truthy", 1) ? function findSourceMapURL(filename) {
     if (filename === '') {
@@ -9481,7 +9481,7 @@ Object.defineProperty(exports, "hasBasePath", {
     }
 });
 const _pathhasprefix = __turbopack_context__.r("[project]/Downloads/nhom5rent4u/node_modules/next/dist/shared/lib/router/utils/path-has-prefix.js [app-ssr] (ecmascript)");
-const basePath = ("TURBOPACK compile-time value", "/Rent4UNext") || '';
+const basePath = ("TURBOPACK compile-time value", "/nhom5_Rent4U-Thue-quan-ao") || '';
 function hasBasePath(path) {
     return (0, _pathhasprefix.pathHasPrefix)(path, basePath);
 }
@@ -9910,7 +9910,7 @@ const configEnv = ("TURBOPACK compile-time value", {
     "qualities": ("TURBOPACK compile-time value", [
         ("TURBOPACK compile-time value", 75)
     ]),
-    "path": ("TURBOPACK compile-time value", "/Rent4UNext/_next/image"),
+    "path": ("TURBOPACK compile-time value", "/nhom5_Rent4U-Thue-quan-ao/_next/image"),
     "loader": ("TURBOPACK compile-time value", "default"),
     "dangerouslyAllowSVG": ("TURBOPACK compile-time value", false),
     "unoptimized": ("TURBOPACK compile-time value", true),

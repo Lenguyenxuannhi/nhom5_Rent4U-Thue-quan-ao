@@ -216,7 +216,7 @@ __turbopack_context__.s([
 function getBasePath() {
     if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
     ;
-    return window.location.pathname.startsWith('/Rent4UNext') ? '/Rent4UNext' : '';
+    return window.location.pathname.startsWith('/nhom5_Rent4U-Thue-quan-ao') ? '/nhom5_Rent4U-Thue-quan-ao' : '';
 }
 function productHref(id) {
     const strId = String(id);

@@ -7,7 +7,7 @@ module.exports = mod;
 }),
 "[project]/Downloads/nhom5rent4u/src/app/favicon.ico (static in ecmascript, tag client)", ((__turbopack_context__) => {
 
-__turbopack_context__.v("/Rent4UNext/_next/static/media/favicon.0x3dzn~oxb6tn.ico" + (globalThis["NEXT_CLIENT_ASSET_SUFFIX"] || ''));}),
+__turbopack_context__.v("/nhom5_Rent4U-Thue-quan-ao/_next/static/media/favicon.0x3dzn~oxb6tn.ico" + (globalThis["NEXT_CLIENT_ASSET_SUFFIX"] || ''));}),
 "[project]/Downloads/nhom5rent4u/src/app/favicon.ico.mjs { IMAGE => \"[project]/Downloads/nhom5rent4u/src/app/favicon.ico (static in ecmascript, tag client)\" } [app-rsc] (structured image object, ecmascript)", ((__turbopack_context__) => {
 "use strict";
 

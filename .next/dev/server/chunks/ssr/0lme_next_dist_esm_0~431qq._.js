@@ -3699,7 +3699,7 @@ __turbopack_context__.s([
     "findSourceMapURL",
     ()=>findSourceMapURL
 ]);
-const basePath = ("TURBOPACK compile-time value", "/Rent4UNext") || '';
+const basePath = ("TURBOPACK compile-time value", "/nhom5_Rent4U-Thue-quan-ao") || '';
 const pathname = `${basePath}/__nextjs_source-map`;
 const findSourceMapURL = ("TURBOPACK compile-time truthy", 1) ? function findSourceMapURL(filename) {
     if (filename === '') {
