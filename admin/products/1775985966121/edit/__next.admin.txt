@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[92825,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0xaduhtc5xjff.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientSegmentRoot"]
-3:I[88760,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0xaduhtc5xjff.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/06eef.atdqkk8.js"],"default"]
-4:I[39756,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0xaduhtc5xjff.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
-5:I[37457,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0xaduhtc5xjff.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
-0:{"rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/06eef.atdqkk8.js","async":true}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]},"serverProvidedParams":{"params":{},"promises":["$@6"]}}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"8FBgI53nlXIqQg7jrU9yu"}
+2:I[92825,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/08ypucmhw0tum.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"ClientSegmentRoot"]
+3:I[88760,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/08ypucmhw0tum.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0dc.o2hg.kp0o.js"],"default"]
+4:I[39756,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/08ypucmhw0tum.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+5:I[37457,["/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/08ypucmhw0tum.js","/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+0:{"rsc":["$","$1","c",{"children":[[["$","script","script-0",{"src":"/nhom5_Rent4U-Thue-quan-ao/_next/static/chunks/0dc.o2hg.kp0o.js","async":true}]],["$","$L2",null,{"Component":"$3","slots":{"children":["$","$L4",null,{"parallelRouterKey":"children","template":["$","$L5",null,{}]}]},"serverProvidedParams":{"params":{},"promises":["$@6"]}}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"s0ShBmTPi54ZDEBL3-kLH"}
 6:"$0:rsc:props:children:1:props:serverProvidedParams:params"
