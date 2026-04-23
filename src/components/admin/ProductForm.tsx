@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getById } from '@/lib/client-db'
-import ColorSwatch from '@/components/ui/ColorSwatch'
+import ColorSwatch, { parseColorInput } from '@/components/ui/ColorSwatch'
 
 export default function ProductForm({ initialValues, entityId }: { initialValues?: any; entityId?: string }) {
   const router = useRouter()
@@ -18,7 +18,10 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
   const [depositAmount, setDepositAmount] = useState<number | string>(initialValues?.depositAmount ?? '')
   const [urlInput, setUrlInput] = useState('')
   const [isAvailable, setIsAvailable] = useState(initialValues?.isAvailable ?? true)
-  const [colors, setColors] = useState<string[]>(initialValues?.colors ?? [])
+  const [colors, setColors] = useState<{ name: string; hex?: string }[]>(() => {
+    const arr = initialValues?.colors ?? []
+    return Array.isArray(arr) ? arr.map((c: any) => parseColorInput(c)) : []
+  })
   const [sizes, setSizes] = useState<string[]>(initialValues?.sizes ?? [])
   const [colorInput, setColorInput] = useState('')
   const [sizeInput, setSizeInput] = useState('')
@@ -35,7 +38,7 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
       setProvider(initialValues.provider ?? '')
       setDepositAmount(initialValues.depositAmount ?? '')
       setIsAvailable(initialValues.isAvailable ?? true)
-      setColors(initialValues.colors ?? [])
+      setColors(Array.isArray(initialValues.colors) ? initialValues.colors.map((c: any) => parseColorInput(c)) : [])
       setSizes(initialValues.sizes ?? [])
     }
   }, [initialValues])
@@ -52,7 +55,7 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
       setProvider(product.provider ?? '')
       setDepositAmount(product.depositAmount ?? '')
       setIsAvailable(product.isAvailable ?? true)
-      setColors(product.colors ?? [])
+      setColors(product.colors ? (Array.isArray(product.colors) ? product.colors.map((c: any) => parseColorInput(c)) : []) : [])
       setSizes(product.sizes ?? [])
     })()
   }, [entityId, initialValues])
@@ -155,7 +158,7 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
           {colors.map((c, i) => (
             <span key={i} className="flex items-center gap-2 px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm">
               <ColorSwatch color={c} />
-              <span className="truncate max-w-xs">{c}</span>
+              <span className="truncate max-w-xs">{c?.name || c?.hex || ''}</span>
               <button type="button" onClick={() => setColors(prev => prev.filter((_, idx) => idx !== i))} className="text-red-400 hover:text-red-600">×</button>
             </span>
           ))}
@@ -174,7 +177,7 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
               if (e.key === 'Enter') {
                 e.preventDefault()
                 if (colorInput.trim()) {
-                  setColors(prev => [...prev, colorInput.trim()])
+                  setColors(prev => [...prev, parseColorInput(colorInput)])
                   setColorInput('')
                 }
               }
@@ -182,7 +185,7 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
             placeholder="Nhập màu rồi Enter (vd: #ff0000 hoặc Đỏ)"
             className="flex-1 p-2 border rounded"
           />
-          <button type="button" onClick={() => { if (colorInput.trim()) { setColors(prev => [...prev, colorInput.trim()]); setColorInput('') } }} className="px-3 py-2 bg-gray-200 dark:bg-gray-800 rounded">Add</button>
+          <button type="button" onClick={() => { if (colorInput.trim()) { setColors(prev => [...prev, parseColorInput(colorInput)]); setColorInput('') } }} className="px-3 py-2 bg-gray-200 dark:bg-gray-800 rounded">Add</button>
         </div>
       </div>
 

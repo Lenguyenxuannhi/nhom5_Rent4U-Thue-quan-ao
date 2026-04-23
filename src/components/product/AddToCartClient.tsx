@@ -7,7 +7,7 @@ import { addToCartFor } from '@/lib/user-storage'
 
 export default function AddToCartClient({ product }: { product: any }) {
   const [size, setSize] = useState(product.sizes?.[0] ?? '')
-  const [color, setColor] = useState(product.colors?.[0]?.name ?? '')
+  const [color, setColor] = useState(product.colors?.[0]?.name ?? (product.colors?.[0] ?? ''))
   const [qty, setQty] = useState(1)
   const [message, setMessage] = useState('')
   const { user } = useAuth()
@@ -42,9 +42,10 @@ export default function AddToCartClient({ product }: { product: any }) {
         <div>
           <label className="text-xs text-muted-foreground">Màu</label>
           <select value={color} onChange={(e) => setColor(e.target.value)} className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-input text-foreground">
-            {product.colors.map((c: any) => (
-              <option key={c.name} value={c.name}>{c.name}</option>
-            ))}
+            {product.colors.map((c: any) => {
+              const name = typeof c === 'string' ? c : c.name
+              return <option key={name} value={name}>{name}</option>
+            })}
           </select>
         </div>
       )}

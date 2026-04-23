@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { getAll, remove } from '@/lib/client-db'
+import ColorSwatch from '@/components/ui/ColorSwatch'
 
 export default function ProductsListClient({ products: initialProducts }: { products?: any[] }) {
   const router = useRouter()
@@ -45,6 +46,7 @@ export default function ProductsListClient({ products: initialProducts }: { prod
               <th className="p-2 text-left">ID</th>
               <th className="p-2 text-left">Name</th>
               <th className="p-2 text-left">Category</th>
+              <th className="p-2 text-left">Màu</th>
               <th className="p-2 text-left">Actions</th>
             </tr>
           </thead>
@@ -54,6 +56,13 @@ export default function ProductsListClient({ products: initialProducts }: { prod
                 <td className="p-2 align-top">{p.id}</td>
                 <td className="p-2 align-top">{p.name}</td>
                 <td className="p-2 align-top">{p.category}</td>
+                <td className="p-2 align-top">
+                  <div className="flex items-center gap-1">
+                    {(p.colors || []).slice(0,5).map((c: any, i: number) => (
+                      <ColorSwatch key={i} color={c} size={14} />
+                    ))}
+                  </div>
+                </td>
                 <td className="p-2 align-top space-x-2">
                   <Link href={`/admin/products/${p.id}/edit`} className="px-2 py-1 bg-blue-500 text-white rounded">Edit</Link>
                   <button type="button" onClick={() => handleDelete(p.id)} className="px-2 py-1 bg-red-500 text-white rounded">Delete</button>

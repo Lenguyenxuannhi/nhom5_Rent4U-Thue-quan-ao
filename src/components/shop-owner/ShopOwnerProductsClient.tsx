@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import ShopOwnerProductForm from './ShopOwnerProductForm'
+import ColorSwatch from '@/components/ui/ColorSwatch'
 import { getAll, remove } from '@/lib/client-db'
 
 export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string | null }) {
@@ -74,6 +75,11 @@ export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string 
               <div className="flex-1">
                 <div className="font-semibold">{p.name}</div>
                 <div className="text-sm text-muted-foreground">{p.provider || p.shopName || ''}</div>
+                <div className="mt-1 flex items-center gap-1">
+                  {(p.colors || []).slice(0,5).map((c: any, idx: number) => (
+                    <ColorSwatch key={idx} color={c} size={14} />
+                  ))}
+                </div>
                 <div className="text-sm text-muted-foreground">
                   {p.pricePerDay ? `${p.pricePerDay} VND/day` : '—'} • Tiền cọc: {p.depositAmount ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.depositAmount) : '—'}
                 </div>

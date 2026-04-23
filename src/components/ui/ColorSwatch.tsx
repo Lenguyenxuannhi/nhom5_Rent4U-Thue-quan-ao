@@ -2,8 +2,10 @@
 
 import React from 'react'
 
+type ColorInput = string | { name?: string; hex?: string }
+
 type Props = {
-  color?: string
+  color?: ColorInput
   size?: number
 }
 
@@ -50,13 +52,29 @@ function resolveColor(input?: string) {
   return v
 }
 
+export function parseColorInput(input?: ColorInput) {
+  if (!input) return { name: '', hex: undefined }
+  if (typeof input === 'string') {
+    const name = input.trim()
+    const resolved = resolveColor(name)
+    const hex = resolved && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(resolved) ? resolved : undefined
+    return { name, hex }
+  }
+  const name = (input.name ?? input.hex ?? '').toString().trim()
+  const resolved = resolveColor(input.hex ?? input.name)
+  const hex = resolved && /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(resolved) ? resolved : undefined
+  return { name, hex }
+}
+
 export default function ColorSwatch({ color, size = 16 }: Props) {
-  const bg = resolveColor(color)
+  const parsed = typeof color === 'object' ? parseColorInput(color) : parseColorInput(color as any)
+  const bg = parsed.hex ?? (typeof color === 'string' ? resolveColor(color) : undefined)
   const isLight = bg && (bg === '#ffffff' || bg === 'white')
 
   return (
     <span
       aria-hidden
+      title={parsed.name || undefined}
       className="inline-block rounded-full"
       style={{
         width: size,
