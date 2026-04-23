@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { getById } from '@/lib/client-db'
+import ColorSwatch from '@/components/ui/ColorSwatch'
 
 export default function ProductForm({ initialValues, entityId }: { initialValues?: any; entityId?: string }) {
   const router = useRouter()
@@ -152,13 +153,20 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
         <label className="block text-sm font-medium mb-1">Màu sắc</label>
         <div className="flex gap-2 flex-wrap mb-2">
           {colors.map((c, i) => (
-            <span key={i} className="flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm">
-              {c}
+            <span key={i} className="flex items-center gap-2 px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded text-sm">
+              <ColorSwatch color={c} />
+              <span className="truncate max-w-xs">{c}</span>
               <button type="button" onClick={() => setColors(prev => prev.filter((_, idx) => idx !== i))} className="text-red-400 hover:text-red-600">×</button>
             </span>
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <input
+            type="color"
+            value={/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(colorInput) ? colorInput : '#000000'}
+            onChange={(e) => setColorInput(e.target.value)}
+            className="w-10 h-10 p-0 border rounded"
+          />
           <input
             value={colorInput}
             onChange={(e) => setColorInput(e.target.value)}
@@ -171,8 +179,8 @@ export default function ProductForm({ initialValues, entityId }: { initialValues
                 }
               }
             }}
-            placeholder="Nhập màu rồi Enter (vd: Đỏ, Xanh...)"
-            className="w-full p-2 border rounded"
+            placeholder="Nhập màu rồi Enter (vd: #ff0000 hoặc Đỏ)"
+            className="flex-1 p-2 border rounded"
           />
           <button type="button" onClick={() => { if (colorInput.trim()) { setColors(prev => [...prev, colorInput.trim()]); setColorInput('') } }} className="px-3 py-2 bg-gray-200 dark:bg-gray-800 rounded">Add</button>
         </div>

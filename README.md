@@ -1,37 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is a Next.js project bootstrapped with `create-next-app`.
 
-## Getting Started
+**Project quickstart & environment**
 
-First, run the development server:
+**Yêu cầu (Prerequisites)**
+- Node: >= 18 (recommended: Node 20.9)
+- npm (project contains `package-lock.json` — `npm` is the recommended package manager)
+- nvm (optional, để dễ chuyển phiên bản Node)
+
+**Phiên bản chính trong dự án**
+- `next`: 16.2.4
+
+**Cài đặt**
+1. Cài Node (khuyên dùng `nvm`):
+
+	- macOS / Linux:
+
+	```bash
+	nvm install 20.9
+	nvm use 20.9
+	```
+
+	- Windows (nvm-windows) hoặc tải từ Node.js installer: cài Node 20.x
+
+2. Cài dependency:
+
+```bash
+npm install
+# hoặc (nếu bạn dùng pnpm/yarn)
+# pnpm install
+# yarn
+```
+
+3. Chạy development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Build & start production:
+
+```bash
+npm run build
+npm run start
+```
+
+**Biến môi trường**
+- Có sẵn `.env.local` và `.env.production` trong repo. Tạo file `.env.local` và cập nhật biến tương ứng với môi trường phát triển:
+
+```bash
+cp .env.production .env.local
+# hoặc (PowerShell trên Windows)
+Copy-Item .env.production .env.local
+```
+
+Điền các biến cần thiết (ví dụ: kết nối MongoDB, SMTP... tuỳ ứng dụng).
+
+**Công cụ phát triển**
+- Kiểm tra type: `npm run typecheck`
+- Kiểm tra lint: `npm run lint`
+
+**Ghi chú**
+- Dự án dùng `npm` (vì có `package-lock.json`). Nếu bạn muốn dùng `pnpm`/`yarn`, chuyển file lock tương ứng.
+- Đã thêm file `.nvmrc` trong repo (nội dung: `20.9`) để dễ cố định phiên bản Node.
+
+Nếu bạn muốn, tôi có thể thêm `engines` vào `package.json` (giúp CI/hosting kiểm tra phiên bản Node) — tôi đã thực hiện thay đổi đó trong repo.
+
+---
+
+Open http://localhost:3000 with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Learn more about Next.js:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-ad
+- https://nextjs.org/docs
+- https://nextjs.org/learn
