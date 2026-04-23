@@ -1,5 +1,5 @@
 {
-  "name": "rent4u-nextjs",
+  "name": "nhom5-rent4u-thue-quan-ao",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "build:export": "npm run build",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "db:import": "node ./scripts/import-from-vite.js",
     "db:backup": "node ./scripts/backup-db.js"
   },
