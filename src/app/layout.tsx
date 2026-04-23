@@ -45,7 +45,9 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <Header />
-            <div className="flex-1">{children}</div>
+            <div className="flex-1">
+              <div className="site-container">{children}</div>
+            </div>
             <Footer />
             <FloatingThemeToggle />
           </AuthProvider>

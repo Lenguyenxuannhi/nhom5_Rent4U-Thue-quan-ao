@@ -48,7 +48,7 @@ export default function ContactPage() {
 
       <div className="max-w-5xl mx-auto space-y-14">
         {/* Admin Info + Contact Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           <div className="lg:col-span-1">
             <div className="bg-card border border-border rounded-2xl p-6 space-y-5 h-fit">
               <div className="flex items-center gap-4">

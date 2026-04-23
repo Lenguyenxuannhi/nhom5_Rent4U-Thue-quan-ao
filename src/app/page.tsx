@@ -24,7 +24,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
 
-      <main className="max-w-7xl mx-auto px-4 py-12">
+      <main className="px-4 py-12">
+        <div className="site-container">
         {/* Hero */}
         <section className="relative rounded-xl overflow-hidden mb-12">
           <div className="w-full h-64 sm:h-[420px] rounded-xl overflow-hidden">
@@ -54,7 +55,7 @@ export default function Home() {
             </div>
             <Link href="/products" className="text-primary">Xem tất cả</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => (
               <Link key={cat.id} href={`/products?category=${cat.id}`} className="p-4 bg-card rounded-2xl text-center text-card-foreground">
                 <div className="w-14 h-14 rounded-2xl mx-auto flex items-center justify-center mb-2" style={{ backgroundColor: cat.color }}>{cat.icon}</div>
@@ -74,7 +75,7 @@ export default function Home() {
             </div>
             <Link href="/products" className="hidden sm:flex text-primary">Xem tất cả</Link>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {loading ? Array.from({ length: 5 }).map((_, i) => (<SkeletonCard key={i} />)) : mostLoved.map(p => <ProductCard key={p.id} product={p} />)}
           </div>
         </section>
@@ -91,6 +92,7 @@ export default function Home() {
             <div className="bg-card p-6 rounded-2xl text-card-foreground">Mặc &amp; hoàn trả</div>
           </div>
         </section>
+        </div>
       </main>
 
       {/* Footer is rendered globally in the layout */}

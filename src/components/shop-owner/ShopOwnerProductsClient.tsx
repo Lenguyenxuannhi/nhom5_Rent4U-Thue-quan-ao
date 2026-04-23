@@ -63,7 +63,7 @@ export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string 
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {products.map((p) => (
           <div key={p.id} className="p-3 bg-white dark:bg-gray-800 rounded border">
             <div className="flex items-center gap-3">
@@ -85,14 +85,16 @@ export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string 
                 </div>
               </div>
 
-              <div className="flex gap-2">
-                <button onClick={() => { setEditing(p); setShowForm(true) }} className="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
-                <button
-                  onClick={() => removeProduct(p.id)}
-                  className="px-2 py-1 bg-red-600 text-white rounded"
-                >
-                  Delete
-                </button>
+              <div>
+                <div className="flex gap-2">
+                  <button onClick={() => { setEditing(p); setShowForm(true) }} className="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
+                  <button
+                    onClick={() => removeProduct(p.id)}
+                    className="px-2 py-1 bg-red-600 text-white rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>

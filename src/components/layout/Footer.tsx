@@ -35,7 +35,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t py-8 bg-background">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-4">
+      <div className="site-container flex flex-col md:flex-row items-center gap-4">
         <div className="flex items-center gap-3">
           {!mounted ? (
             <div style={{ width: 32, height: 32 }} />

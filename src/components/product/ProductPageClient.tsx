@@ -20,16 +20,16 @@ export default function ProductPageClient({ id }: { id: string }) {
   }, [id])
 
   if (loading) {
-    return <div className="px-4 py-8 max-w-6xl mx-auto">Đang tải sản phẩm...</div>
+    return <div className="px-4 py-8">Đang tải sản phẩm...</div>
   }
 
   if (!product) {
-    return <div className="px-4 py-8 max-w-6xl mx-auto">Không tìm thấy sản phẩm.</div>
+    return <div className="px-4 py-8">Không tìm thấy sản phẩm.</div>
   }
 
   return (
     <div className="px-4 py-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="site-container">
         {/* Breadcrumb */}
         <nav className="text-xs text-muted-foreground mb-6 flex items-center gap-1.5">
           <Link href="/" className="hover:text-foreground">Trang chủ</Link>
@@ -38,8 +38,7 @@ export default function ProductPageClient({ id }: { id: string }) {
           <span>/</span>
           <span className="text-foreground truncate max-w-[200px]">{product.name}</span>
         </nav>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
           <div className="lg:col-span-2 space-y-6">
             <ImageGalleryClient images={product.images || []} />
             <ProductTabsClient product={product} />

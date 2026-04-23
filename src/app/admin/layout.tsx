@@ -32,7 +32,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <AdminSidebar />
         <div className="flex-1 min-h-screen">
           <AdminTopbar />
-          <main className="p-6">{children}</main>
+          <main className="p-6">
+            <div className="site-container">{children}</div>
+          </main>
         </div>
       </div>
     </div>

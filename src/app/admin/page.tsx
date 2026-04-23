@@ -36,7 +36,7 @@ export default function AdminPage() {
   return (
     <div>
       <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         <StatCard title="Users" value={counts.users} />
         <StatCard title="Products" value={counts.products} />
         <StatCard title="Shops" value={counts.shops} />

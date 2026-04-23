@@ -73,7 +73,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex items-center justify-center">
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
         <div className="hidden lg:block rounded-xl overflow-hidden">
           <ImageWithFallback src={HERO_IMAGE_2} alt="Decor" className="w-full h-full object-cover rounded-xl" />
         </div>

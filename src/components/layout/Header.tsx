@@ -98,7 +98,7 @@ export default function Header() {
 
   return (
     <header className="w-full border-b">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center">
+      <div className="site-container py-4 flex items-center">
         <Link href="/" aria-label="Home">
           <div className="flex items-center gap-2">
             {!mounted ? (

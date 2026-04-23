@@ -41,7 +41,7 @@ export default function ProductFiltersClient({ initial }: { initial?: { category
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 items-end">
+    <form onSubmit={handleSubmit} className="mb-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 items-end">
       <div>
         <label className="text-xs text-muted-foreground">Tìm kiếm</label>
         <input name="q" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Tên, mô tả, tags" className="w-full mt-1 px-3 py-2 rounded-lg border border-border bg-input text-foreground" />
