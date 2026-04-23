@@ -1,16 +1,48 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StarRating } from '@/components/ui/StarRating'
+import StarRatingInput from '@/components/ui/StarRatingInput'
+import { useAuth } from '@/components/AuthProvider'
+import { getUserRating, submitRating } from '@/lib/rating-client'
+import { useRouter } from 'next/navigation'
 
 type Tab = 'description' | 'details' | 'reviews'
 
 export default function ProductTabsClient({ product }: { product: any }) {
   const [tab, setTab] = useState<Tab>('description')
+  const { user } = useAuth()
+  const router = useRouter()
+
+  const [localRating, setLocalRating] = useState<number | undefined>(product.rating)
+  const [localReviewCount, setLocalReviewCount] = useState<number | undefined>(product.reviewCount)
+  const [userRatingObj, setUserRatingObj] = useState<any | null>(null)
+
+  useEffect(() => {
+    setLocalRating(product.rating)
+    setLocalReviewCount(product.reviewCount)
+  }, [product.rating, product.reviewCount])
+
+  useEffect(() => {
+    let canceled = false
+    if (!user?.id) {
+      setUserRatingObj(null)
+      return
+    }
+    ;(async () => {
+      try {
+        const r = await getUserRating(String(user.id), String(product.id))
+        if (!canceled) setUserRatingObj(r)
+      } catch {
+        if (!canceled) setUserRatingObj(null)
+      }
+    })()
+    return () => { canceled = true }
+  }, [user?.id, product.id])
 
   const tabs: { key: Tab; label: string }[] = [
     { key: 'description', label: 'Mô tả' },
     { key: 'details', label: 'Thông tin' },
-    { key: 'reviews', label: `Đánh giá (${product.reviewCount ?? 0})` },
+    { key: 'reviews', label: `Đánh giá (${localReviewCount ?? 0})` },
   ]
 
   return (
@@ -60,15 +92,42 @@ export default function ProductTabsClient({ product }: { product: any }) {
         {tab === 'reviews' && (
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="text-4xl font-bold">{product.rating?.toFixed(1) ?? '—'}</div>
+              <div className="text-4xl font-bold">{localRating?.toFixed(1) ?? '—'}</div>
               <div>
-                <StarRating rating={product.rating} count={product.reviewCount} />
-                <p className="text-xs text-muted-foreground mt-1">{product.reviewCount ?? 0} đánh giá</p>
+                <StarRating rating={localRating} count={localReviewCount} />
+                <p className="text-xs text-muted-foreground mt-1">{localReviewCount ?? 0} đánh giá</p>
               </div>
             </div>
 
+            <div>
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="text-sm">Đánh giá của bạn:</div>
+                  <StarRatingInput
+                    initial={userRatingObj?.rating ?? 0}
+                    onSubmit={async (v) => {
+                      try {
+                        const res = await submitRating(String(user.id), String(product.id), v)
+                        if (res) {
+                          setLocalRating(res.avg)
+                          setLocalReviewCount(res.count)
+                          setUserRatingObj({ rating: v, date: new Date().toISOString() })
+                        }
+                      } catch {
+                        // ignore
+                      }
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="text-sm">
+                  <a href="/login" onClick={(e) => { e.preventDefault(); router.push('/login') }} className="text-primary">Đăng nhập</a> để đánh giá sản phẩm
+                </div>
+              )}
+            </div>
+
             <div className="space-y-3">
-              {(product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(product.rating, product.reviewCount)).map((r: any, i: number) => (
+              {(product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(localRating ?? 0, localReviewCount ?? 0)).map((r: any, i: number) => (
                 <div key={i} className="border border-border rounded-xl p-3 space-y-1">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-medium">{r.author}</span>
