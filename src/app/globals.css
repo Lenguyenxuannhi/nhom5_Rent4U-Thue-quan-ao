@@ -190,4 +190,46 @@
   .accent-ring {
     box-shadow: 0 6px 20px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.02) inset;
   }
+
+  /* Product card hover effects */
+  .product-card {
+    @apply transition-transform transform; 
+    transition-property: transform, box-shadow;
+    transition-duration: 250ms;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  }
+
+  .product-card .media {
+    @apply overflow-hidden transition-transform duration-500;
+  }
+
+  .product-card .media img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+    transform-origin: center center;
+  }
+
+  .group:hover .product-card .media img,
+  .product-card:hover .media img {
+    transform: scale(1.06);
+  }
+
+  .fav-btn {
+    @apply transition-transform duration-200; 
+  }
+
+  .fav-btn:hover {
+    transform: scale(1.15);
+  }
+
+  .add-btn {
+    @apply transition-shadow duration-200; 
+  }
+
+  .add-btn:hover {
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  }
 }
