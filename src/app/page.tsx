@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/AuthProvider';
 import { products as allProducts, categories, HERO_IMAGE } from '../data/products';
 import { ProductCard } from '../components/ui/ProductCard';
 import { SkeletonCard } from '../components/ui/SkeletonCard';
@@ -20,6 +21,7 @@ export default function Home() {
   }, []);
 
   const mostLoved = useMemo(() => allProducts.slice(0, 5), []);
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -133,7 +135,9 @@ export default function Home() {
               </div>
 
               <div className="mt-8">
-                <Link href="/products" className="inline-block px-8 py-3 bg-white text-foreground rounded-full font-semibold">Thuê ngay</Link>
+                <Link href="/products" className="inline-block px-8 py-3 rounded-full font-semibold bg-white text-foreground hover:opacity-95 dark:bg-foreground dark:text-background">
+                  Thuê ngay
+                </Link>
               </div>
             </div>
           </div>
@@ -178,7 +182,9 @@ export default function Home() {
               <h2 className="text-3xl font-bold mt-2">Mở tủ đồ vô hạn</h2>
               <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">Chỉ với vài click. Đăng ký ngay hôm nay và nhận ưu đãi giảm 20% cho đơn thuê đầu tiên.</p>
               <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-                <Link href="/register" className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold">Đăng ký miễn phí</Link>
+                {!user && (
+                  <Link href="/register" className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-semibold">Đăng ký miễn phí</Link>
+                )}
                 <Link href="/products" className="px-6 py-3 border border-border rounded-full text-foreground">Xem bộ sưu tập</Link>
               </div>
             </div>
