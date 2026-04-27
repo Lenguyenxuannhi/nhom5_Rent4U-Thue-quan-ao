@@ -93,3 +93,9 @@ npm run dev
 npm run build
 npm run start
 ```
+
+
+## Image
+![HomePage](image.png)
+![Products](image-1.png)
+![LoginPage](image-3.png)
