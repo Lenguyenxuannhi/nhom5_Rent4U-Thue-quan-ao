@@ -48,9 +48,9 @@ export function ProductCard({ product }: { product: Product }) {
   }
 
   return (
-    <Link href={productHref(product.id)} className="block">
-      <div className="bg-card rounded-2xl overflow-hidden border border-border p-2 relative">
-        <div className="aspect-[3/4] overflow-hidden">
+    <Link href={productHref(product.id)} className="block group">
+      <div className="product-card bg-card rounded-2xl overflow-hidden border border-border p-2 relative">
+        <div className="media aspect-[3/4] overflow-hidden">
           <ImageWithFallback src={product.images?.[0]} alt={product.name} className="w-full h-full object-cover" />
         </div>
         <div className="p-3">
@@ -60,8 +60,8 @@ export function ProductCard({ product }: { product: Product }) {
               <h3 className="text-sm font-medium text-card-foreground">{product.name}</h3>
             </div>
             <div className="flex items-center gap-2">
-              <button onClick={toggleFavorite} aria-label="favorite" className="text-xl leading-none">{isFav ? '❤️' : '🤍'}</button>
-              <button onClick={addToCart} className="px-2 py-1 bg-primary text-primary-foreground rounded">Thêm</button>
+              <button onClick={toggleFavorite} aria-label="favorite" className="fav-btn text-xl leading-none">{isFav ? '❤️' : '🤍'}</button>
+              <button onClick={addToCart} className="add-btn px-2 py-1 bg-primary text-primary-foreground rounded">Thêm</button>
             </div>
           </div>
           <StarRating rating={product.rating} count={product.reviewCount} />

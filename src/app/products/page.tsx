@@ -83,7 +83,7 @@ function ProductsPageContent() {
 
   return (
     <div className="px-4 py-8">
-      <div className="max-w-6xl mx-auto">
+      <div className="site-container">
         <div className="flex items-center justify-between mb-6">
           <div>
             <span className="text-xs text-primary uppercase">Sản phẩm</span>
@@ -105,7 +105,7 @@ function ProductsPageContent() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {paged.map((product) => (
               <ProductCard key={product.id} product={product as any} />
             ))}

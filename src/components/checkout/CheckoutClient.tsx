@@ -233,7 +233,7 @@ export default function CheckoutClient() {
         />
         {formErrors.name && <div className="text-sm text-red-500 mt-1">{formErrors.name}</div>}
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <div>
           <label className="text-sm">Email</label>
           <input
@@ -295,7 +295,7 @@ export default function CheckoutClient() {
         - Lưu ý: Trả muộn hoặc hư hỏng sẽ bị tính phí phụ thu theo mức do chủ cửa hàng quy định.
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <div>
           <label className="text-sm">Mã khuyến mãi</label>
           <div className="flex gap-2">

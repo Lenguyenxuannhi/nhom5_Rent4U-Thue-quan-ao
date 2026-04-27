@@ -44,8 +44,8 @@ export default function TrendingPage() {
 
   return (
     <div className="px-4 py-10">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center mb-8">
+      <div className="site-container">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-center mb-8">
           <div className="lg:col-span-2">
             <div className="relative rounded-2xl overflow-hidden h-56 sm:h-72 md:h-96">
               <img src={HERO_IMAGE} alt="Xu hướng thời trang" className="w-full h-full object-cover" />
@@ -74,8 +74,8 @@ export default function TrendingPage() {
               <Link href="/products" className="px-4 py-2 border rounded-lg">Xem tất cả sản phẩm</Link>
             </div>
           </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {scored.map((product) => (
               <ProductCard key={product.id} product={product as any} />
             ))}

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '@/components/AuthProvider';
 import { readFavorites, readCart } from '@/lib/user-storage';
 import { useRouter } from 'next/navigation';
@@ -67,6 +67,9 @@ export default function Header() {
   const [favCount, setFavCount] = useState(0);
   const { user } = useAuth();
   const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+  const btnRef = useRef<HTMLButtonElement | null>(null)
 
   useEffect(() => {
     function readCounts() {
@@ -96,9 +99,40 @@ export default function Header() {
     };
   }, [user]);
 
+  // close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [pathname])
+
+  // close when clicking outside
+  useEffect(() => {
+    function onPointer(e: any) {
+      if (!mobileOpen) return
+      const target = e.target
+      if (menuRef.current && menuRef.current.contains(target)) return
+      if (btnRef.current && btnRef.current.contains(target)) return
+      setMobileOpen(false)
+    }
+    document.addEventListener('pointerdown', onPointer)
+    return () => document.removeEventListener('pointerdown', onPointer)
+  }, [mobileOpen])
+
+  // close when switching to large screens
+  useEffect(() => {
+    try {
+      const mq = window.matchMedia('(min-width: 1280px)')
+      const listener = (e: MediaQueryListEvent) => { if (e.matches) setMobileOpen(false) }
+      if (mq.addEventListener) mq.addEventListener('change', listener)
+      else mq.addListener(listener as any)
+      return () => { if (mq.removeEventListener) mq.removeEventListener('change', listener); else mq.removeListener(listener as any) }
+    } catch {
+      return
+    }
+  }, [])
+
   return (
-    <header className="w-full border-b">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center">
+    <header className="w-full border-b relative">
+      <div className="site-container py-4 flex items-center">
         <Link href="/" aria-label="Home">
           <div className="flex items-center gap-2">
             {!mounted ? (
@@ -126,6 +160,23 @@ export default function Header() {
           ))}
         </nav>
 
+        {/* Mobile menu button (visible when nav is hidden) */}
+        <div className="lg:hidden ml-4">
+          <button
+            ref={btnRef}
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Đóng menu' : 'Mở menu'}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="p-2 rounded hover:bg-muted inline-flex items-center"
+          >
+            {mobileOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            )}
+          </button>
+        </div>
+
         <div className="ml-auto flex items-center gap-4">
           <div className="relative">
             <button onClick={() => { if (!user) router.push('/login'); else router.push('/favorites') }} className="p-2 rounded hover:bg-muted inline-flex items-center" aria-label="Yêu thích">
@@ -142,6 +193,27 @@ export default function Header() {
           </div>
 
           <ProfileMenu />
+        </div>
+      </div>
+      {/* Mobile dropbar: shows nav links when mobile menu is open */}
+      <div
+        ref={menuRef}
+        className={`lg:hidden absolute left-0 right-0 top-full z-30 border-t border-border bg-card text-foreground transition-shadow ${mobileOpen ? 'block' : 'hidden'}`}
+        role="menu"
+      >
+        <div className="site-container py-3">
+          <nav className="flex flex-col gap-2">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.to}
+                href={link.to}
+                onClick={() => setMobileOpen(false)}
+                className={`block px-3 py-2 rounded text-sm transition-colors ${pathname === link.to ? 'text-primary font-medium' : 'text-foreground hover:text-primary hover:bg-muted'}`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </header>

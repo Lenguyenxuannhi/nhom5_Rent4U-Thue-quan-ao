@@ -37,3 +37,7 @@ coverage/
 # Misc
 .cache/
 public/static/
+
+# Assistant memory
+assistant_memory.md
+/memories/

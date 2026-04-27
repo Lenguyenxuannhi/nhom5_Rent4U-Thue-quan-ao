@@ -134,3 +134,102 @@
 .logo-dark { display: none; }
 .dark .logo-dark { display: inline-block !important; }
 .dark .logo-light { display: none !important; }
+
+@layer components {
+  .site-container {
+    @apply mx-auto px-4;
+    max-width: 100%;
+  }
+
+  @screen sm {
+    .site-container {
+      max-width: 375px;
+    }
+  }
+
+  @screen md {
+    .site-container {
+      max-width: 768px;
+    }
+  }
+
+  @screen lg {
+    .site-container {
+      max-width: 1280px;
+    }
+  }
+
+  /* Decorative card styles for highlighted sections */
+  .decor-card {
+    @apply bg-card text-card-foreground rounded-3xl p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl shadow-sm relative overflow-hidden;
+  }
+
+  .decor-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+    mix-blend-mode: overlay;
+    opacity: 0.7;
+  }
+
+  .decor-icon {
+    @apply w-16 h-16 rounded-full flex items-center justify-center text-2xl;
+  }
+
+  .stat-badge {
+    @apply text-4xl font-extrabold;
+  }
+
+  .cta-primary {
+    @apply inline-block px-6 py-3 rounded-full font-semibold transition-shadow shadow-sm hover:shadow-lg;
+  }
+
+  /* A subtle accent ring for featured cards */
+  .accent-ring {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06), 0 1px 0 rgba(255,255,255,0.02) inset;
+  }
+
+  /* Product card hover effects */
+  .product-card {
+    @apply transition-transform transform; 
+    transition-property: transform, box-shadow;
+    transition-duration: 250ms;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+  }
+
+  .product-card .media {
+    @apply overflow-hidden transition-transform duration-500;
+  }
+
+  .product-card .media img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+    transform-origin: center center;
+  }
+
+  .group:hover .product-card .media img,
+  .product-card:hover .media img {
+    transform: scale(1.06);
+  }
+
+  .fav-btn {
+    @apply transition-transform duration-200; 
+  }
+
+  .fav-btn:hover {
+    transform: scale(1.15);
+  }
+
+  .add-btn {
+    @apply transition-shadow duration-200; 
+  }
+
+  .add-btn:hover {
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+  }
+}

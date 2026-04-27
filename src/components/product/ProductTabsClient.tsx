@@ -1,16 +1,65 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StarRating } from '@/components/ui/StarRating'
+import StarRatingInput from '@/components/ui/StarRatingInput'
+import { useAuth } from '@/components/AuthProvider'
+import { getUserRating, getRatingsForProduct, submitRating } from '@/lib/rating-client'
+import { useRouter } from 'next/navigation'
 
 type Tab = 'description' | 'details' | 'reviews'
 
 export default function ProductTabsClient({ product }: { product: any }) {
   const [tab, setTab] = useState<Tab>('description')
+  const { user } = useAuth()
+  const router = useRouter()
+
+  const [localRating, setLocalRating] = useState<number | undefined>(product.rating)
+  const [localReviewCount, setLocalReviewCount] = useState<number | undefined>(product.reviewCount)
+  const [userRatingObj, setUserRatingObj] = useState<any | null>(null)
+  const [reviewsList, setReviewsList] = useState<any[]>([])
+  const [lastRatingValue, setLastRatingValue] = useState<number | null>(null)
+  const [comment, setComment] = useState<string>('')
+  const [submittingComment, setSubmittingComment] = useState<boolean>(false)
+
+  useEffect(() => {
+    setLocalRating(product.rating)
+    setLocalReviewCount(product.reviewCount)
+  }, [product.rating, product.reviewCount])
+
+  useEffect(() => {
+    let canceled = false
+    if (!user?.id) {
+      setUserRatingObj(null)
+      return
+    }
+    ;(async () => {
+      try {
+        const r = await getUserRating(String(user.id), String(product.id))
+        if (!canceled) setUserRatingObj(r)
+      } catch {
+        if (!canceled) setUserRatingObj(null)
+      }
+    })()
+    return () => { canceled = true }
+  }, [user?.id, product.id])
+
+  useEffect(() => {
+    let canceled = false
+    ;(async () => {
+      try {
+        const r = await getRatingsForProduct(String(product.id))
+        if (!canceled) setReviewsList(Array.isArray(r) ? (r as any[]).slice().sort((a: any, b: any) => (b.date || '').localeCompare(a.date || '')) : [])
+      } catch {
+        if (!canceled) setReviewsList([])
+      }
+    })()
+    return () => { canceled = true }
+  }, [product.id, localReviewCount])
 
   const tabs: { key: Tab; label: string }[] = [
     { key: 'description', label: 'Mô tả' },
     { key: 'details', label: 'Thông tin' },
-    { key: 'reviews', label: `Đánh giá (${product.reviewCount ?? 0})` },
+    { key: 'reviews', label: `Đánh giá (${localReviewCount ?? 0})` },
   ]
 
   return (
@@ -39,7 +88,7 @@ export default function ProductTabsClient({ product }: { product: any }) {
         )}
 
         {tab === 'details' && (
-          <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+          <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
             {[
               ['Danh mục', product.category],
               ['Tình trạng', product.condition],
@@ -60,18 +109,81 @@ export default function ProductTabsClient({ product }: { product: any }) {
         {tab === 'reviews' && (
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="text-4xl font-bold">{product.rating?.toFixed(1) ?? '—'}</div>
+              <div className="text-4xl font-bold">{localRating?.toFixed(1) ?? '—'}</div>
               <div>
-                <StarRating rating={product.rating} count={product.reviewCount} />
-                <p className="text-xs text-muted-foreground mt-1">{product.reviewCount ?? 0} đánh giá</p>
+                <StarRating rating={localRating} count={localReviewCount} />
+                <p className="text-xs text-muted-foreground mt-1">{localReviewCount ?? 0} đánh giá</p>
               </div>
             </div>
 
+            <div>
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="text-sm">Đánh giá của bạn:</div>
+                    <div className="flex items-center gap-3">
+                      <StarRatingInput
+                        initial={userRatingObj?.rating ?? 0}
+                        onSubmit={async (v) => {
+                          setLastRatingValue(v)
+                          try {
+                            const res = await submitRating(String(user.id), String(product.id), v)
+                            if (res) {
+                              setLocalRating(res.avg)
+                              setLocalReviewCount(res.count)
+                              setUserRatingObj((prev: any) => ({ ...(prev || {}), rating: v, date: new Date().toISOString() }))
+                            }
+                          } catch {
+                            // ignore
+                          }
+                        }}
+                      />
+                      <div className="flex-1">
+                        <textarea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Viết nhận xét của bạn..." className="w-full p-2 border rounded text-sm bg-input dark:bg-slate-800" />
+                        <div className="mt-2">
+                          <button
+                            onClick={async () => {
+                              if (!user) return router.push('/login')
+                              const txt = (comment || '').trim()
+                              if (!txt) return
+                              setSubmittingComment(true)
+                              try {
+                                const ratingToSend = lastRatingValue ?? userRatingObj?.rating ?? 5
+                                const res = await submitRating(String(user.id), String(product.id), Number(ratingToSend), txt)
+                                if (res) {
+                                  setLocalRating(res.avg)
+                                  setLocalReviewCount(res.count)
+                                  setUserRatingObj({ rating: Number(ratingToSend), comment: txt, date: new Date().toISOString() })
+                                  setComment('')
+                                  // refresh reviews list
+                                  const fresh = await getRatingsForProduct(String(product.id))
+                                  setReviewsList(Array.isArray(fresh) ? fresh.slice().sort((a: any, b: any) => (b.date || '').localeCompare(a.date || '')) : [])
+                                }
+                              } catch (e) {
+                                // ignore
+                              }
+                              setSubmittingComment(false)
+                            }}
+                            className="px-3 py-2 bg-primary text-primary-foreground rounded disabled:opacity-50"
+                            disabled={submittingComment || !comment.trim()}
+                          >
+                            {submittingComment ? 'Đang gửi...' : 'Gửi nhận xét'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              ) : (
+                <div className="text-sm">
+                  <a href="/login" onClick={(e) => { e.preventDefault(); router.push('/login') }} className="text-primary">Đăng nhập</a> để đánh giá sản phẩm
+                </div>
+              )}
+            </div>
+
             <div className="space-y-3">
-              {(product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(product.rating, product.reviewCount)).map((r: any, i: number) => (
-                <div key={i} className="border border-border rounded-xl p-3 space-y-1">
+              {(reviewsList && reviewsList.length > 0 ? reviewsList : (product.reviews && product.reviews.length > 0 ? product.reviews : generatePlaceholderReviews(localRating ?? 0, localReviewCount ?? 0))).map((r: any, i: number) => (
+                <div key={r.id ?? i} className="border border-border rounded-xl p-3 space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium">{r.author}</span>
+                    <span className="text-sm font-medium">{r.userId && user && String(r.userId) === String(user.id) ? 'Bạn' : (r.author || 'Người dùng')}</span>
                     <span className="text-xs text-muted-foreground">{r.date}</span>
                   </div>
                   <StarRating rating={r.rating} />

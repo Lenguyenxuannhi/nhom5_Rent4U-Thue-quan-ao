@@ -12,7 +12,7 @@ export default function ImageGalleryClient({ images = [] }: { images?: string[] 
       </div>
 
       {images && images.length > 1 && (
-        <div className="grid grid-cols-4 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
           {images.map((src, i) => (
             <button
               key={i}

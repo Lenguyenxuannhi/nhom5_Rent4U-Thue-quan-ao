@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import ShopOwnerProductForm from './ShopOwnerProductForm'
+import ColorSwatch from '@/components/ui/ColorSwatch'
 import { getAll, remove } from '@/lib/client-db'
 
 export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string | null }) {
@@ -62,7 +63,7 @@ export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string 
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {products.map((p) => (
           <div key={p.id} className="p-3 bg-white dark:bg-gray-800 rounded border">
             <div className="flex items-center gap-3">
@@ -74,19 +75,26 @@ export default function ShopOwnerProductsClient({ ownerId }: { ownerId?: string 
               <div className="flex-1">
                 <div className="font-semibold">{p.name}</div>
                 <div className="text-sm text-muted-foreground">{p.provider || p.shopName || ''}</div>
+                <div className="mt-1 flex items-center gap-1">
+                  {(p.colors || []).slice(0,5).map((c: any, idx: number) => (
+                    <ColorSwatch key={idx} color={c} size={14} />
+                  ))}
+                </div>
                 <div className="text-sm text-muted-foreground">
                   {p.pricePerDay ? `${p.pricePerDay} VND/day` : '—'} • Tiền cọc: {p.depositAmount ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(p.depositAmount) : '—'}
                 </div>
               </div>
 
-              <div className="flex gap-2">
-                <button onClick={() => { setEditing(p); setShowForm(true) }} className="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
-                <button
-                  onClick={() => removeProduct(p.id)}
-                  className="px-2 py-1 bg-red-600 text-white rounded"
-                >
-                  Delete
-                </button>
+              <div>
+                <div className="flex gap-2">
+                  <button onClick={() => { setEditing(p); setShowForm(true) }} className="px-2 py-1 bg-blue-500 text-white rounded">Edit</button>
+                  <button
+                    onClick={() => removeProduct(p.id)}
+                    className="px-2 py-1 bg-red-600 text-white rounded"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
